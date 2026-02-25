@@ -193,7 +193,7 @@ const TeamSlider = () => {
       ) : (
         <div className="slider-container">
           <Swiper
-            key={`swiper-${activeSport}-${employees.length}`}
+            key={`swiper-${activeSport}-${employees.length}-${useLanguage().language}`}
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}

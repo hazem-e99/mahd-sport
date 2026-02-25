@@ -1,7 +1,7 @@
-import type { Employee } from "../data/staticEmployees";
+import type { Employee } from "../types/employee";
 
 export const generateEmployeeVCard = (employee: Employee): string => {
-  const vCard = [
+  return [
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${employee.fullNameEn}`,
@@ -11,6 +11,4 @@ export const generateEmployeeVCard = (employee: Employee): string => {
     `TEL;TYPE=CELL:${employee.mobileNumber}`,
     "END:VCARD",
   ].join("\n");
-
-  return vCard;
 };

@@ -1,6 +1,8 @@
 @use './variables' as *;
 @use './root' as *;
-@use './player-card' as *;
+@use './components/player-card' as *;
+@use './components/card-bubble' as *;
+@use './components/sport-filter' as *;
 
 #root {
   min-height: 100vh;
@@ -8,8 +10,8 @@
 
 @font-face {
   font-family: "Janna LT";
-  src: url("./font/JannaLT-Regular.woff2") format("woff2"),
-    url("./font/JannaLT-Regular.woff") format("woff");
+  src: url("./fonts/JannaLT-Regular.woff2") format("woff2"),
+    url("./fonts/JannaLT-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -17,8 +19,8 @@
 
 @font-face {
   font-family: "Janna LT";
-  src: url("./font/JannaLT-Bold.woff2") format("woff2"),
-    url("./font/JannaLT-Bold.woff") format("woff");
+  src: url("./fonts/JannaLT-Bold.woff2") format("woff2"),
+    url("./fonts/JannaLT-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;

@@ -13,5 +13,12 @@
   "mahdSport": "Mahd Sport",
   "view_details": "View Details",
   "darkMode": "Dark Mode",
-  "lightMode": "Light Mode"
+  "lightMode": "Light Mode",
+  "allSports": "All",
+  "sport_football": "Football",
+  "sport_judo": "Judo",
+  "sport_athletics": "Athletics",
+  "sport_taekwondo": "Taekwondo",
+  "sport_tennis": "Tennis",
+  "sport_swimming": "Swimming"
 }

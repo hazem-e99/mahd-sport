@@ -1,0 +1,333 @@
+@use '../variables' as *;
+
+$card-w: 280px;
+$card-h: 442px;
+
+// SVG size ratios (outline is slightly larger than bg)
+$outline-scale-x: calc(825 / 799);
+$outline-scale-y: calc(1299 / 1262);
+
+.cbwcs {
+    font-family: "Mahd Favorit Arabic", "Janna LT", sans-serif;
+    position: relative;
+    width: $card-w;
+    height: $card-h;
+    cursor: pointer;
+    margin: 0 auto;
+    user-select: none;
+    transition: transform 0.3s cubic-bezier(.175, .885, .32, 1.2);
+
+    &:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+
+    >* {
+        position: absolute;
+    }
+
+    // ── Background ──
+    .cbwcs__bg {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    // ── Gold outline (slightly larger to frame the bg shape) ──
+    .cbwcs__outline {
+        pointer-events: none;
+        z-index: 8;
+        top: calc(-1 * ($outline-scale-y - 1) / 2 * 100%);
+        left: calc(-1 * ($outline-scale-x - 1) / 2 * 100%);
+        width: calc(100% * #{$outline-scale-x});
+        height: calc(100% * #{$outline-scale-y});
+        object-fit: fill;
+    }
+
+    // ── Player photo ──
+    .cbwcs__photo {
+        z-index: 3;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        height: 62%;
+        object-fit: contain;
+        object-position: bottom center;
+        pointer-events: none;
+        transition: top 0.35s ease, height 0.35s ease, width 0.35s ease;
+    }
+
+    // ── Mahd logo (top-right) ──
+    .cbwcs__logo {
+        z-index: 9;
+        top: 20%;
+        right: 9%;
+        width: 18%;
+        height: auto;
+        opacity: 0.92;
+    }
+
+    // ── Sport icon (top-left) ──
+    .cbwcs__topleft {
+        z-index: 9;
+        top: 20%;
+        left: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #fff;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, .55);
+    }
+
+    .cbwcs__sport-icon {
+        font-size: 22px;
+    }
+
+    // ── Football-specific overlays ──
+    .cbwcs__side-gradient {
+        z-index: 4;
+        top: 0;
+        left: 0;
+        width: 42%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none;
+    }
+
+    .cbwcs__rating {
+        position: relative !important;
+        font-size: 36px;
+        font-weight: 900;
+        font-style: italic;
+        line-height: 1;
+        color: #fff;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, .65);
+        letter-spacing: -1px;
+    }
+
+    .cbwcs__position {
+        position: relative !important;
+        font-size: 14px;
+        font-weight: 800;
+        font-style: italic;
+        text-transform: uppercase;
+        color: #fff;
+        letter-spacing: 1px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+        margin-top: 2px;
+    }
+
+    .cbwcs__topleft-divider {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.6);
+        margin: 6px 0;
+        border-radius: 1px;
+    }
+
+    .cbwcs__football-icon {
+        position: relative !important;
+        width: 30px;
+        height: 30px;
+        margin-top: 2px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .45));
+    }
+
+    // ── Name bar ──
+    .cbwcs__namebar {
+        z-index: 10;
+        bottom: 26%;
+        left: 0;
+        width: 100%;
+        height: 13%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: bottom 0.35s ease;
+    }
+
+    .cbwcs__namebar-bg {
+        position: absolute !important;
+        inset: 0;
+        width: 93%;
+        height: 100%;
+        margin: 0 auto;
+        object-fit: fill;
+        z-index: 0;
+    }
+
+    .cbwcs__namebar-text {
+        position: relative !important;
+        z-index: 1;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 84%;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    }
+
+    // ── Bottom shared zone ──
+    .cbwcs__bottom {
+        z-index: 10;
+        bottom: 8%;
+        left: 0;
+        width: 100%;
+        height: 22%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        transition: opacity .25s ease;
+    }
+
+    .cbwcs__bottom--front {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .cbwcs__bottom--back {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    // ── Flag row ──
+    .cbwcs__flag-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .cbwcs__flag {
+        position: relative !important;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .cbwcs__country {
+        position: relative !important;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #3c300f;
+    }
+
+    .cbwcs__year {
+        position: relative !important;
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        line-height: 1;
+        color: #3c300f;
+    }
+
+    // ── Stats labels (each on req-dark pill) ──
+    .cbwcs__stats {
+        position: relative !important;
+        width: 86%;
+        direction: ltr;
+    }
+
+    .cbwcs__stats-labels {
+        position: relative !important;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        text-align: center;
+        width: 100%;
+        gap: 3px;
+    }
+
+    .cbwcs__stat-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+    }
+
+    .cbwcs__stat-pill {
+        position: absolute !important;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none;
+    }
+
+    .cbwcs__stat-label {
+        position: relative !important;
+        z-index: 1;
+        font-size: 8.5px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: .3px;
+    }
+
+    // ── Stats values (plain large numbers) ──
+    .cbwcs__stats-values {
+        position: relative !important;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        text-align: center;
+        width: 100%;
+        margin-top: 3px;
+
+        span {
+            font-size: 22px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1;
+            color: #fff;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+        }
+    }
+
+    // ── Flip icon ──
+    .cbwcs__flip-icon {
+        position: relative !important;
+        width: 32px;
+        height: auto;
+        margin-top: 6px;
+        opacity: .85;
+    }
+
+    // ── Toggled (back) state ──
+    &.cbwcs--toggled {
+        .cbwcs__bottom--front {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cbwcs__bottom--back {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cbwcs__photo {
+            top: 7%;
+            height: 48%;
+            width: 78%;
+        }
+
+        .cbwcs__namebar {
+            bottom: 33%;
+        }
+
+        .cbwcs__bottom {
+            bottom: 10%;
+        }
+    }
+}

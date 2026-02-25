@@ -13,5 +13,12 @@
   "mahdSport": "مهد الرياضية",
   "view_details": "التفاصيل",
   "darkMode": "الوضع الداكن",
-  "lightMode": "الوضع الفاتح"
+  "lightMode": "الوضع الفاتح",
+  "allSports": "الكل",
+  "sport_football": "كرة القدم",
+  "sport_judo": "الجودو",
+  "sport_athletics": "ألعاب القوى",
+  "sport_taekwondo": "التايكواندو",
+  "sport_tennis": "التنس",
+  "sport_swimming": "السباحة"
 }

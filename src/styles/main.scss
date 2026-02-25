@@ -8,10 +8,12 @@
   min-height: 100vh;
 }
 
+// ===== Arabic Fonts =====
+
+// Janna LT
 @font-face {
   font-family: "Janna LT";
-  src: url("./fonts/JannaLT-Regular.woff2") format("woff2"),
-    url("./fonts/JannaLT-Regular.woff") format("woff");
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/Janna/Janna LT Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -19,90 +21,271 @@
 
 @font-face {
   font-family: "Janna LT";
-  src: url("./fonts/JannaLT-Bold.woff2") format("woff2"),
-    url("./fonts/JannaLT-Bold.woff") format("woff");
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/Janna/Janna LT Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
+// TheMixArabic
 @font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Regular.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Regular.woff") format("woff");
-  font-weight: normal;
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-ExtraLight.otf") format("opentype");
+  font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Bold.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Medium.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Light.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Light.woff") format("woff");
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-Light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Extrabold.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Extrabold.woff") format("woff");
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-Plain.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-SemiLight.otf") format("opentype");
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-ExtraBold.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Mahd Favorit Arabic";
-  src: url("./fonts/MahdFavoritArabic-Black.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Black.woff") format("woff");
+  font-family: "TheMixArabic";
+  src: url("/assets/fonts/Arabic Fonts/Arabic Fonts/TheMixArabic/TheMixArabic-Black.otf") format("opentype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
+// ===== English Fonts =====
+
+// Myriad Pro
 @font-face {
-  font-family: "Mahd Favorit Arabic Book";
-  src: url("./fonts/MahdFavoritArabic-Book.woff2") format("woff2"),
-    url("./fonts/MahdFavoritArabic-Book.woff") format("woff");
-  font-weight: normal;
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-It.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-SemiboldIt.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-BoldIt.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro Cond";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-Cond.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro Cond";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-CondIt.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro Cond";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-BoldCond.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Myriad Pro Cond";
+  src: url("/assets/fonts/English Fonts/English Fonts/Myriad Pro/MyriadPro-BoldCondIt.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Zilla Slab
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-SemiBoldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlab-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab Highlight";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlabHighlight-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Zilla Slab Highlight";
+  src: url("/assets/fonts/English Fonts/English Fonts/zilla-slab/ZillaSlabHighlight-Bold.otf") format("opentype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 body {
   background-color: var(--bs-body-bg-content);
-  font-family: "Mahd Favorit Arabic" !important;
+  font-family: "TheMixArabic", "Janna LT", "Myriad Pro", "Zilla Slab", Arial, sans-serif !important;
   margin: 0;
 }
 
 html {
-  font-family: "Mahd Favorit Arabic" !important;
+  font-family: "TheMixArabic", "Janna LT", "Myriad Pro", "Zilla Slab", Arial, sans-serif !important;
 }
 
 *,
 *::before,
 *::after {
-  font-family: "Mahd Favorit Arabic" !important;
+  font-family: "TheMixArabic", "Janna LT", "Myriad Pro", "Zilla Slab", Arial, sans-serif;
   box-sizing: border-box;
 }
 

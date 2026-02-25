@@ -8,7 +8,7 @@ $outline-scale-x: calc(825 / 799);
 $outline-scale-y: calc(1299 / 1262);
 
 .cbwcs {
-    font-family: "Mahd Favorit Arabic", "Janna LT", sans-serif;
+    font-family: "Myriad Pro", "Zilla Slab", "TheMixArabic", "Janna LT", sans-serif !important;
     position: relative;
     width: $card-w;
     height: $card-h;
@@ -100,6 +100,7 @@ $outline-scale-y: calc(1299 / 1262);
 
     .cbwcs__rating {
         position: relative !important;
+        font-family: "Myriad Pro", sans-serif !important;
         font-size: 36px;
         font-weight: 900;
         font-style: italic;
@@ -111,6 +112,7 @@ $outline-scale-y: calc(1299 / 1262);
 
     .cbwcs__position {
         position: relative !important;
+        font-family: "Myriad Pro", sans-serif !important;
         font-size: 14px;
         font-weight: 800;
         font-style: italic;
@@ -164,6 +166,7 @@ $outline-scale-y: calc(1299 / 1262);
     .cbwcs__namebar-text {
         position: relative !important;
         z-index: 1;
+        font-family: "Myriad Pro", sans-serif !important;
         color: #fff;
         font-size: 13px;
         font-weight: 900;
@@ -218,6 +221,7 @@ $outline-scale-y: calc(1299 / 1262);
 
     .cbwcs__country {
         position: relative !important;
+        font-family: "Myriad Pro", sans-serif !important;
         font-size: 11px;
         font-weight: 800;
         text-transform: uppercase;
@@ -227,6 +231,7 @@ $outline-scale-y: calc(1299 / 1262);
 
     .cbwcs__year {
         position: relative !important;
+        font-family: "Zilla Slab", serif !important;
         font-size: 28px;
         font-weight: 900;
         letter-spacing: 2px;
@@ -270,6 +275,7 @@ $outline-scale-y: calc(1299 / 1262);
     .cbwcs__stat-label {
         position: relative !important;
         z-index: 1;
+        font-family: "Myriad Pro", sans-serif !important;
         font-size: 8.5px;
         font-weight: 800;
         color: #fff;
@@ -286,6 +292,7 @@ $outline-scale-y: calc(1299 / 1262);
         margin-top: 3px;
 
         span {
+            font-family: "Myriad Pro", sans-serif !important;
             font-size: 22px;
             font-weight: 900;
             font-style: italic;

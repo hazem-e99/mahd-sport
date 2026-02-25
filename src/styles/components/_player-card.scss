@@ -5,7 +5,7 @@ $card-w: 280px;
 $card-h: 442px;
 
 .pc {
-  font-family: "Mahd Favorit Arabic", "Janna LT", sans-serif;
+  font-family: "Myriad Pro", "Zilla Slab", "TheMixArabic", "Janna LT", sans-serif !important;
   position: relative;
   width: $card-w;
   height: $card-h;
@@ -104,6 +104,7 @@ $card-h: 442px;
   // Large rating number (e.g. "99")
   .pc__rating {
     position: relative !important;
+    font-family: "Myriad Pro", sans-serif !important;
     font-size: 36px;
     font-weight: 900;
     font-style: italic;
@@ -116,6 +117,7 @@ $card-h: 442px;
   // Position abbreviation (e.g. "CF")
   .pc__position {
     position: relative !important;
+    font-family: "Myriad Pro", sans-serif !important;
     font-size: 14px;
     font-weight: 800;
     font-style: italic;
@@ -171,8 +173,9 @@ $card-h: 442px;
   .pc__namebar-text {
     position: relative !important;
     z-index: 1;
+    font-family: "Myriad Pro", sans-serif !important;
     color: #fff;
-    font-size: 13px;
+    font-size: 22px;
     font-weight: 900;
     font-style: italic;
     text-transform: uppercase;
@@ -225,6 +228,7 @@ $card-h: 442px;
 
   .pc__country {
     position: relative !important;
+    font-family: "Myriad Pro", sans-serif !important;
     font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
@@ -233,6 +237,7 @@ $card-h: 442px;
 
   .pc__year {
     position: relative !important;
+    font-family: "Zilla Slab", serif !important;
     font-size: 28px;
     font-weight: 900;
     letter-spacing: 2px;
@@ -275,6 +280,7 @@ $card-h: 442px;
   .pc__stat-label {
     position: relative !important;
     z-index: 1;
+    font-family: "Myriad Pro", sans-serif !important;
     font-size: 8.5px;
     font-weight: 800;
     color: #fff;
@@ -290,6 +296,7 @@ $card-h: 442px;
     margin-top: 3px;
 
     span {
+      font-family: "Myriad Pro", sans-serif !important;
       font-size: 22px;
       font-weight: 900;
       font-style: italic;

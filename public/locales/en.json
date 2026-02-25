@@ -1,0 +1,17 @@
+{
+  "cardTeam": "Team",
+  "searchBy": "Search by",
+  "name": "Name",
+  "department": "Department",
+  "jobTitle": "Job title",
+  "email": "Email",
+  "clear": "Clear",
+  "loading": "Loading...",
+  "loadingTeamMembers": "Loading team members",
+  "no_Result_Found": "No results found",
+  "mahdSportsAcademy": "Mahd Sports Academy",
+  "mahdSport": "Mahd Sport",
+  "view_details": "View Details",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode"
+}

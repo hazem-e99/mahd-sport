@@ -1,0 +1,17 @@
+{
+  "cardTeam": "الفريق",
+  "searchBy": "البحث بواسطة",
+  "name": "الاسم",
+  "department": "القسم",
+  "jobTitle": "المسمى الوظيفي",
+  "email": "البريد الإلكتروني",
+  "clear": "مسح",
+  "loading": "جاري التحميل...",
+  "loadingTeamMembers": "جاري تحميل أعضاء الفريق",
+  "no_Result_Found": "لا يوجد نتائج",
+  "mahdSportsAcademy": "أكاديمية مهد الرياضية",
+  "mahdSport": "مهد الرياضية",
+  "view_details": "التفاصيل",
+  "darkMode": "الوضع الداكن",
+  "lightMode": "الوضع الفاتح"
+}

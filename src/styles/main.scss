@@ -1,0 +1,606 @@
+@use './variables' as *;
+@use './root' as *;
+@use './player-card' as *;
+
+#root {
+  min-height: 100vh;
+}
+
+@font-face {
+  font-family: "Janna LT";
+  src: url("./font/JannaLT-Regular.woff2") format("woff2"),
+    url("./font/JannaLT-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Janna LT";
+  src: url("./font/JannaLT-Bold.woff2") format("woff2"),
+    url("./font/JannaLT-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Regular.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Bold.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Medium.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Light.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Extrabold.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Extrabold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic";
+  src: url("./fonts/MahdFavoritArabic-Black.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mahd Favorit Arabic Book";
+  src: url("./fonts/MahdFavoritArabic-Book.woff2") format("woff2"),
+    url("./fonts/MahdFavoritArabic-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  background-color: var(--bs-body-bg-content);
+  font-family: "Mahd Favorit Arabic" !important;
+  margin: 0;
+}
+
+html {
+  font-family: "Mahd Favorit Arabic" !important;
+}
+
+*,
+*::before,
+*::after {
+  font-family: "Mahd Favorit Arabic" !important;
+  box-sizing: border-box;
+}
+
+// ===== Navbar Styles =====
+.sport-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 2px solid var(--bs-border-color);
+  background-color: var(--bs-body-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+
+    img {
+      height: 48px;
+      width: auto;
+    }
+
+    .logo-text {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: var(--bs-primary-color);
+      white-space: nowrap;
+    }
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .theme-toggle,
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: $border-radius-full;
+      border: 1px solid var(--bs-border-color);
+      background-color: var(--bs-body-bg);
+      color: var(--bs-body-color, #333);
+      cursor: pointer;
+      transition: $transition;
+      font-size: $font-size-lg;
+
+      &:hover {
+        background-color: rgba(var(--bs-primary-rgb-color), 0.1);
+        border-color: var(--bs-primary-color);
+      }
+    }
+
+    .lang-toggle {
+      font-weight: $font-weight-semibold;
+      font-size: $font-size-md;
+      width: auto;
+      padding: 0 14px;
+      border-radius: $border-radius-lg;
+    }
+  }
+}
+
+// ===== Team Slider Styles =====
+.team-slider-page {
+  min-height: calc(100vh - 76px);
+  background-position: center;
+  background-image: url("/images/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  h2 {
+    color: var(--bs-body-color, #fff);
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    margin: 0;
+  }
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+
+  .search-label {
+    color: var(--bs-body-color, #fff);
+    font-weight: $font-weight-medium;
+    font-size: $font-size-md;
+  }
+
+  .filter-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    select {
+      width: 150px;
+      padding: 8px 12px;
+      border: 1px solid var(--bs-border-color);
+      border-radius: $border-radius-sm;
+      background-color: var(--bs-body-bg);
+      color: var(--bs-body-color, #333);
+      font-size: $font-size-md;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: var(--bs-primary-color);
+      }
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 10px;
+      pointer-events: none;
+      font-size: 12px;
+      color: var(--bs-body-color, #333);
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 10px;
+      }
+    }
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius-sm;
+    padding: 6px 12px;
+    background-color: var(--bs-body-bg);
+    min-width: 280px;
+
+    [data-bs-theme=dark] & {
+      background-color: var(--bs-body-bg-content);
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px;
+      display: flex;
+
+      svg path {
+        fill: $color-secondary;
+      }
+    }
+
+    input {
+      border: none;
+      outline: none;
+      padding: 4px 10px;
+      font-size: $font-size-md;
+      background: transparent;
+      color: var(--bs-body-color, #333);
+      flex: 1;
+      min-width: 0;
+
+      &::placeholder {
+        color: $color-gray-700;
+      }
+    }
+
+    .clear-btn {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.slider-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 60px;
+
+  .swiper-container {
+    width: 100%;
+    padding: 20px 0 40px;
+  }
+
+  .swiper-slide-custom {
+    width: 280px !important;
+    cursor: pointer;
+  }
+
+  // Navigation arrows
+  .custom-swiper-button-prev,
+  .custom-swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--bs-body-bg);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+      box-shadow: 0px 0px 12px rgba(var(--bs-primary-rgb-color), 0.4);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        fill: var(--bs-body-color);
+      }
+    }
+  }
+
+  .custom-swiper-button-prev {
+    left: 10px;
+  }
+
+  .custom-swiper-button-next {
+    right: 10px;
+  }
+}
+
+// ===== Employee Card =====
+.cardt {
+  text-align: center;
+  padding: 20px;
+  height: 390px;
+  width: 300px;
+  background-position: center;
+  background-image: url("/images/back-img-v2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+}
+
+.cardt-header {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-img {
+  max-height: 200px !important;
+  max-width: 200px !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 4px;
+  object-fit: contain !important;
+  margin: auto;
+  position: relative;
+  display: block;
+  top: 20px;
+}
+
+.bottom-line {
+  height: 50px;
+  background: linear-gradient(0deg, rgb(149 91 219 / 84%) 0%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid #a966fb;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  width: calc(100% - 40px);
+}
+
+.bottom-line2 {
+  width: 110px;
+  background: linear-gradient(90deg, rgb(255 255 255 / 0%) 0%, rgb(169, 102, 251) 50%, rgb(255 255 255 / 0%) 100%);
+  height: 1px;
+  margin: 10px auto;
+}
+
+.footer-version-1 {
+  padding-top: 10px;
+  text-align: center;
+
+  h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: $color-white;
+  }
+
+  p {
+    font-size: 13px;
+    color: $color-white;
+    margin-top: 5px;
+  }
+
+  span {
+    font-size: 11px;
+    color: $color-white;
+  }
+
+  svg {
+    margin: auto;
+  }
+}
+
+.footer-version-2 {
+  display: flex;
+  align-items: start;
+  padding: 10px 20px;
+  justify-content: space-evenly;
+
+  .fv2-left {
+    text-align: start;
+
+    h3 {
+      font-size: 11px;
+      color: $color-white;
+    }
+
+    p {
+      font-size: 11px;
+      color: $color-white;
+      margin-top: 5px;
+    }
+
+    span {
+      font-size: 11px;
+      color: $color-white;
+    }
+  }
+
+  .fv2-right {
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+// ===== QR Code Styles =====
+.employee-qr-code {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+
+  .qr-code-container {
+    background: $color-white;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    canvas {
+      border-radius: 4px;
+    }
+  }
+}
+
+// ===== Loading & Empty States =====
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 300px;
+
+  .spinner-border {
+    color: var(--bs-primary-color);
+    width: 3rem;
+    height: 3rem;
+  }
+
+  p {
+    color: $color-gray-600;
+    font-size: $font-size-md;
+    margin-top: 15px;
+    font-weight: 500;
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: $font-size-xl;
+}
+
+// ===== Responsive =====
+@media (max-width: 768px) {
+  .sport-navbar {
+    padding: 10px 16px;
+
+    .navbar-logo {
+      .logo-text {
+        font-size: $font-size-md;
+      }
+
+      img {
+        height: 36px;
+      }
+    }
+  }
+
+  .team-header h2 {
+    font-size: $font-size-2xl;
+  }
+
+  .search-bar-container {
+    flex-direction: column;
+    gap: 10px;
+
+    .search-input-wrapper {
+      min-width: 100%;
+    }
+  }
+
+  .slider-container {
+    padding: 0 20px;
+  }
+
+  .cardt {
+    width: 260px;
+    height: 360px;
+    padding: 15px;
+  }
+}
+
+// ===== RTL Support =====
+html[dir="rtl"] {
+  .slider-container {
+    .custom-swiper-button-prev {
+      left: auto;
+      right: 10px;
+    }
+
+    .custom-swiper-button-next {
+      right: auto;
+      left: 10px;
+    }
+  }
+}
+
+// ===== Modal Backdrop =====
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.35);
+  opacity: 1 !important;
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+// ===== Bootstrap Overrides =====
+.btn {
+  &.btn-primary {
+    color: var(--bs-primary-inverse, #fff);
+    background-color: var(--bs-primary-color);
+    border-color: var(--bs-primary-color);
+
+    &:hover {
+      background-color: rgba(var(--bs-primary-rgb-color), 0.9);
+      border-color: var(--bs-primary-color);
+    }
+  }
+}
+
+.form-control,
+.form-select {
+  border-radius: $border-radius-sm;
+  border: 1px solid var(--bs-border-color);
+
+  &:focus {
+    border-color: rgba($color-primary, 0.4) !important;
+    box-shadow: none !important;
+  }
+}

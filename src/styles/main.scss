@@ -289,73 +289,6 @@ html {
   box-sizing: border-box;
 }
 
-// ===== Navbar Styles =====
-.sport-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  border-bottom: 2px solid var(--bs-border-color);
-  background-color: var(--bs-body-bg);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    gap: 12px;
-
-    img {
-      height: 48px;
-      width: auto;
-    }
-
-    .logo-text {
-      font-size: $font-size-xl;
-      font-weight: $font-weight-bold;
-      color: var(--bs-primary-color);
-      white-space: nowrap;
-    }
-  }
-
-  .navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    .theme-toggle,
-    .lang-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: $border-radius-full;
-      border: 1px solid var(--bs-border-color);
-      background-color: var(--bs-body-bg);
-      color: var(--bs-body-color, #333);
-      cursor: pointer;
-      transition: $transition;
-      font-size: $font-size-lg;
-
-      &:hover {
-        background-color: rgba(var(--bs-primary-rgb-color), 0.1);
-        border-color: var(--bs-primary-color);
-      }
-    }
-
-    .lang-toggle {
-      font-weight: $font-weight-semibold;
-      font-size: $font-size-md;
-      width: auto;
-      padding: 0 14px;
-      border-radius: $border-radius-lg;
-    }
-  }
-}
-
 // ===== Team Slider Styles =====
 .team-slider-page {
   min-height: calc(100vh - 76px);
@@ -704,20 +637,6 @@ html {
 
 // ===== Responsive =====
 @media (max-width: 768px) {
-  .sport-navbar {
-    padding: 10px 16px;
-
-    .navbar-logo {
-      .logo-text {
-        font-size: $font-size-md;
-      }
-
-      img {
-        height: 36px;
-      }
-    }
-  }
-
   .team-header h2 {
     font-size: $font-size-2xl;
   }

@@ -5,6 +5,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Navbar } from "./components/layout";
 import { TeamSlider } from "./components/slider";
+import BackgroundMusic from "./components/common/backgroundMusic/BackgroundMusic";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <div className="app-wrapper">
           <Navbar />
           <TeamSlider />
+          <BackgroundMusic />
         </div>
       </ThemeProvider>
     </LanguageProvider>

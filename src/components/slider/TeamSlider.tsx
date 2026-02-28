@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 
 // Swiper styles
 import "swiper/css";
@@ -39,7 +40,8 @@ const TeamSlider = () => {
   const [searchText, setSearchText] = useState("");
   const [filterBy, setFilterBy] = useState("name");
   const [activeSport, setActiveSport] = useState("all");
-  const [toggledId, setToggledId] = useState<number | null>(null);
+  const [toggledId,   setToggledId]   = useState<number | null>(null);
+  const [activeIndex,  setActiveIndex]  = useState<number>(() => Math.floor(staticEmployees.length / 2));
   const { t } = useLanguage();
 
   // Count employees per sport tab (for badge)
@@ -96,7 +98,15 @@ const TeamSlider = () => {
 
   const handleSportChange = (key: string) => {
     setActiveSport(key);
-    setToggledId(null); // reset flipped card when switching sport
+    setToggledId(null);
+  };
+
+  const handleSwiper = (swiper: SwiperType) => {
+    setActiveIndex(swiper.realIndex);
+  };
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveIndex(swiper.realIndex);
   };
 
   const clearSearch = () => {
@@ -193,7 +203,7 @@ const TeamSlider = () => {
       ) : (
         <div className="slider-container">
           <Swiper
-            key={`swiper-${activeSport}-${employees.length}-${useLanguage().language}`}
+            key={`swiper-${activeSport}-${employees.length}`}
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}
@@ -215,6 +225,8 @@ const TeamSlider = () => {
             }}
             modules={[EffectCoverflow, Navigation]}
             className="swiper-container"
+            onSwiper={handleSwiper}
+            onSlideChange={handleSlideChange}
           >
             {employees.map((item) => (
               <SwiperSlide key={item.id} className="swiper-slide-custom">
@@ -223,6 +235,7 @@ const TeamSlider = () => {
                   isToggled={toggledId === item.id}
                   onToggle={() => handleToggle(item.id)}
                   qrCode={<QRCodeComponent data={generateEmployeeVCard(item)} />}
+                  isActive={employees.indexOf(item) === activeIndex}
                 />
               </SwiperSlide>
             ))}

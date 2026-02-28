@@ -40,9 +40,9 @@ const TeamSlider = () => {
   const [searchText, setSearchText] = useState("");
   const [filterBy, setFilterBy] = useState("name");
   const [activeSport, setActiveSport] = useState("all");
-  const [toggledId,   setToggledId]   = useState<number | null>(null);
-  const [activeIndex,  setActiveIndex]  = useState<number>(() => Math.floor(staticEmployees.length / 2));
-  const { t } = useLanguage();
+  const [toggledId, setToggledId] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(() => Math.floor(staticEmployees.length / 2));
+  const { t, language } = useLanguage();
 
   // Count employees per sport tab (for badge)
   const sportCounts = useMemo(() => {
@@ -203,7 +203,8 @@ const TeamSlider = () => {
       ) : (
         <div className="slider-container">
           <Swiper
-            key={`swiper-${activeSport}-${employees.length}`}
+            key={`swiper-${activeSport}-${employees.length}-${language}`}
+            dir={language === "ar" ? "rtl" : "ltr"}
             effect="coverflow"
             grabCursor={true}
             centeredSlides={true}

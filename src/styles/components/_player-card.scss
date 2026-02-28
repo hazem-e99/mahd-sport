@@ -49,8 +49,20 @@ $card-h: 442px;
   }
 
   // ─────────── Player photo ───────────
-  .pc__photo {
+  .pc__photo-clip {
+    position: absolute;
     z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    // clip to the shield shape using the same path as the background SVG
+    clip-path: url(#card-shield-clip);
+  }
+
+  .pc__photo {
+    position: absolute !important;
     top: 5%;
     left: 50%;
     transform: translateX(-50%);
@@ -326,7 +338,7 @@ $card-h: 442px;
       pointer-events: auto;
     }
 
-    .pc__photo {
+    .pc__photo-clip .pc__photo {
       top: 7%;
       height: 48%;
       width: 78%;

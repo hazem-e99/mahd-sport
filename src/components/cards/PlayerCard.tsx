@@ -101,24 +101,36 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
   const prevActive = useRef(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
-  // key trick: force GIF restart on each activation by changing key
   const [gifKey, setGifKey] = useState(0);
+  const celebrationTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (isActive && !prevActive.current) {
-      // restart GIF from frame 0
+      // clear any previous timer
+      if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
+
       setGifKey((k) => k + 1);
       setShowCelebration(true);
       setTimeout(() => setShowParticles(true), 100);
       setTimeout(() => setShowParticles(false), 1400);
-      setTimeout(() => setShowCelebration(false), 2800);
+
+      // إيقاف الـ GIF بعد 3 ثواني (مدة الـ GIF)
+      celebrationTimer.current = setTimeout(() => {
+        setShowCelebration(false);
+      }, 3000);
     }
     if (!isActive) {
+      if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
       setShowCelebration(false);
       setShowParticles(false);
     }
     prevActive.current = isActive;
   }, [isActive]);
+
+  // cleanup on unmount
+  useEffect(() => () => {
+    if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
+  }, []);
 
   return (
     // wrapper: overflow visible so particles can fly outside card bounds
@@ -156,7 +168,17 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
         )}
       </AnimatePresence>
 
-      {/* ── The actual card (UNCHANGED) ── */}
+      {/* ── Hidden SVG clipPath — shield shape from Background SVG (viewBox 799×1262) ── */}
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <defs>
+          <clipPath id="card-shield-clip" clipPathUnits="objectBoundingBox"
+            transform={`scale(${1 / 799} ${1 / 1262})`}>
+            <path d="M392.600,1255.900 C392.400,1255.700 371.200,1238.400 327.100,1214.800 C286.400,1193.000 217.300,1161.200 119.300,1133.500 C66.900,1118.700 38.700,1103.800 22.000,1082.300 C3.700,1058.700 0.100,1027.900 0.100,985.900 C0.100,164.400 0.100,164.400 0.100,164.400 C0.100,164.400 10.800,165.600 10.800,165.600 C12.400,165.600 35.900,165.400 82.600,136.900 C104.600,123.500 120.100,110.700 136.600,97.200 C153.800,83.100 171.600,68.600 198.600,51.100 C247.600,19.500 292.600,16.600 294.500,16.500 C302.000,16.100 302.000,16.100 302.000,16.100 C302.000,16.100 304.400,22.900 304.400,22.900 C304.900,24.200 312.600,41.600 337.500,47.800 C353.100,51.700 375.400,31.200 391.200,10.800 C398.900,0.900 398.900,0.900 398.900,0.900 C398.900,0.900 406.900,10.600 406.900,10.600 C421.000,27.700 447.900,51.500 460.800,48.300 C485.700,42.100 493.300,24.700 493.900,23.400 C496.400,16.400 496.400,16.400 496.400,16.400 C496.400,16.400 503.800,17.000 503.800,17.000 C505.700,17.100 550.600,20.000 599.600,51.600 C626.700,69.000 644.400,83.600 661.600,97.700 C678.100,111.200 693.600,123.900 715.600,137.300 C762.300,165.800 785.800,166.000 787.400,166.000 C798.400,164.800 798.400,164.800 798.400,164.800 L798.000,176.000 C798.000,176.000 798.000,986.000 798.000,986.000 C798.000,1028.000 794.300,1058.800 776.100,1082.400 C759.400,1104.000 731.200,1118.800 678.800,1133.600 C678.800,1133.600 678.800,1133.600 678.800,1133.600 C489.400,1187.100 422.000,1240.400 405.900,1255.400 C399.400,1261.500 399.400,1261.500 399.400,1261.500 C399.400,1261.500 392.600,1255.900 392.600,1255.900 z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      {/* ── The actual card ── */}
       <div
         className={`pc ${isToggled ? "pc--toggled" : ""} ${theme}`}
         onClick={onToggle}
@@ -167,16 +189,18 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
         {/* ── Layer 1: Background ── */}
         <img src={bg} className="pc__bg" alt="" />
 
-        {/* ── Layer 2: Player photo — hidden during celebration ── */}
-        <img
-          src={employee.photoUrl}
-          className="pc__photo"
-          alt={fullName}
-          style={{
-            opacity: showCelebration ? 0 : 1,
-            transition: showCelebration ? "opacity 0.2s ease" : "opacity 0.5s ease 0.3s",
-          }}
-        />
+        {/* ── Layer 2: Player photo — clipped inside card bounds ── */}
+        <div className="pc__photo-clip">
+          <img
+            src={employee.photoUrl}
+            className="pc__photo"
+            alt={fullName}
+            style={{
+              opacity: showCelebration ? 0 : 1,
+              transition: showCelebration ? "opacity 0.2s ease" : "opacity 0.5s ease 0.3s",
+            }}
+          />
+        </div>
 
         {/* ── Layer 3: Shield outline ── */}
         <img
@@ -248,32 +272,42 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           <img src="/assets/card-layers/Back-black.svg" className="pc__flip-icon" alt="flip" />
         </div>
 
+        {/* ── Celebration GIF ── */}
+        <AnimatePresence>
+          {showCelebration && (
+            <div className="pc__photo-clip">
+              <motion.img
+                key={gifKey}
+                src="/assets/players/celebreations.gif"
+                alt="celebration"
+                className="pc__photo"
+                style={{ opacity: 1 }}
+                initial={{ opacity: 0, filter: "brightness(2) saturate(0)" }}
+                animate={{ opacity: 1, filter: "brightness(1) saturate(1)" }}
+                exit={{
+                  opacity: [1, 0, 1, 0, 1, 0],
+                  filter: [
+                    "brightness(1) saturate(1)",
+                    "brightness(3) saturate(0) hue-rotate(90deg)",
+                    "brightness(1) saturate(1)",
+                    "brightness(3) saturate(0) hue-rotate(180deg)",
+                    "brightness(1) saturate(1)",
+                    "brightness(0) saturate(0)",
+                  ],
+                  x: [0, -4, 4, -2, 2, 0],
+                  scaleX: [1, 1.02, 0.98, 1.01, 0.99, 1],
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "linear",
+                  times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                }}
+              />
+            </div>
+          )}
+        </AnimatePresence>
+
       </div>
-
-      {/* ── Celebration GIF overlay (Moved outside .pc for absolute priority) ── */}
-      <AnimatePresence>
-        {showCelebration && (
-          <motion.img
-            key={gifKey}
-            src="/assets/players/celebreations.gif"
-            alt="celebration"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: 10000,
-              pointerEvents: "none",
-
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };

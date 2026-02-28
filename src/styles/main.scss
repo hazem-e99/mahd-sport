@@ -289,13 +289,18 @@ html {
   box-sizing: border-box;
 }
 
+// ===== Team Slider Wrapper (dynamic background) =====
+.team-slider-wrapper {
+  min-height: calc(100vh - 76px);
+  background-image: url("/images/bg.png"); // default background
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 // ===== Team Slider Styles =====
 .team-slider-page {
   min-height: calc(100vh - 76px);
-  background-position: center;
-  background-image: url("/images/bg.png");
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   padding: 30px 20px;

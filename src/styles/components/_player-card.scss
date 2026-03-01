@@ -245,6 +245,7 @@ $card-h: 442px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1.2px;
+    color: #fff;
   }
 
   .pc__year {
@@ -254,6 +255,7 @@ $card-h: 442px;
     font-weight: 900;
     letter-spacing: 2px;
     line-height: 1;
+    color: #fff;
   }
 
   // ─────────── Stats grid ───────────
@@ -324,6 +326,7 @@ $card-h: 442px;
     height: auto;
     margin-top: 6px;
     opacity: .85;
+    filter: brightness(0) invert(1);
   }
 
   // ─────────── Toggled state ───────────
@@ -355,21 +358,6 @@ $card-h: 442px;
     }
   }
 
-  // ─────────── Theme colour tokens ───────────
-  &.theme-gold,
-  &.theme-diamond {
-
-    .pc__country,
-    .pc__year,
-    .pc__stats-values span {
-      color: #000;
-    }
-
-    .pc__flip-icon {
-      filter: brightness(0);
-    }
-  }
-
   &.theme-purple,
   &.theme-silver {
 
@@ -379,10 +367,6 @@ $card-h: 442px;
     .pc__stats-values span {
       color: #fff;
       text-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-    }
-
-    .pc__flip-icon {
-      filter: brightness(0) invert(1) opacity(.8);
     }
   }
 }

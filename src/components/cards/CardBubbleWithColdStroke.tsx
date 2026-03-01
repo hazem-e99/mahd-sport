@@ -1,6 +1,7 @@
 import React from "react";
 import type { Employee } from "../../types/employee";
 import { useLanguage } from "../../context/LanguageContext";
+import CountUp from "../ui/CountUp";
 
 // ── Sport icon map (non-football sports) ─────────────────────────────────────
 const SPORT_ICONS: Record<string, string> = {
@@ -129,7 +130,7 @@ const CardBubbleWithColdStroke: React.FC<CardBubbleWithColdStrokeProps> = ({
           </div>
           <div className="cbwcs__stats-values">
             {STAT_KEYS.map((key) => (
-              <span key={key}>{stats?.[key]}</span>
+              <CountUp key={key} value={stats?.[key]} duration={900} trigger={isToggled} />
             ))}
           </div>
         </div>

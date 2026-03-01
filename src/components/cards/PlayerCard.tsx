@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import type { Employee } from "../../types/employee";
 import { useLanguage } from "../../context/LanguageContext";
 import CountUp from "../ui/CountUp";
+
+// ── Celebration state machine ─────────────────────────────────────────────────
+// "idle"         → normal card, everything visible
+// "celebrating"  → GIF playing, card elements hidden
+// "reassembling" → GIF done, elements animate back in one-by-one
+type CelebState = "idle" | "celebrating" | "reassembling";
 
 // ── Sport icon map (non-football sports) ─────────────────────────────────────
 const SPORT_ICONS: Record<string, string> = {
@@ -83,7 +89,7 @@ interface PlayerCardProps {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-const PlayerCard: React.FC<PlayerCardProps> = ({
+const PlayerCard: React.FC<PlayerCardProps> = React.memo(({
   employee,
   isToggled,
   onToggle,
@@ -98,40 +104,102 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
   const { bg, outline, bar, theme } = layer;
   const stats = employee.stats;
 
+  // ── Animation controls for reassemble stagger ────────────────────────────
+  const photoAnim    = useAnimation();
+  const topleftAnim  = useAnimation();
+  const logoAnim     = useAnimation();
+  const namebarAnim  = useAnimation();
+  const bottomAnim   = useAnimation();
+
+  // Spring config used for each element snapping back into place
+  const SNAP = { type: "spring", stiffness: 260, damping: 20 } as const;
+
   // ── Celebration state ─────────────────────────────────────────────────────
   const prevActive = useRef(false);
-  const [showCelebration, setShowCelebration] = useState(false);
+  const [celebState, setCelebState]   = useState<CelebState>("idle");
   const [showParticles, setShowParticles] = useState(false);
   const [gifKey, setGifKey] = useState(0);
-  const celebrationTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerA = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerB = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearTimers = () => {
+    if (timerA.current) clearTimeout(timerA.current);
+    if (timerB.current) clearTimeout(timerB.current);
+  };
+
+  // ── Choreograph the reassemble animation ─────────────────────────────────
+  useEffect(() => {
+    if (celebState === "celebrating") {
+      // Instantly hide every element behind the GIF
+      photoAnim.set({ opacity: 0, scale: 0.7 });
+      topleftAnim.set({ opacity: 0, scale: 0.6 });
+      logoAnim.set({ opacity: 0, scale: 0.6 });
+      namebarAnim.set({ opacity: 0, scale: 0.8 });
+      bottomAnim.set({ opacity: 0, scale: 0.8 });
+
+    } else if (celebState === "reassembling") {
+      // Staggered reveal: wide gaps between elements create suspense
+      const items: Array<{
+        ctrl: ReturnType<typeof useAnimation>;
+        from: Record<string, number>;
+        delay: number;
+      }> = [
+        // 1st — name bar rises first
+        { ctrl: namebarAnim, from: { opacity: 0, y:  45, scale: 0.8 }, delay: 0.00 },
+        // 2nd — player photo drops in after the name
+        { ctrl: photoAnim,   from: { opacity: 0, y: -60, scale: 0.7 }, delay: 0.45 },
+        // 3rd — rating / position slides in from the left
+        { ctrl: topleftAnim, from: { opacity: 0, x: -50, scale: 0.6 }, delay: 0.85 },
+        // 4th — logo drops from top-right
+        { ctrl: logoAnim,    from: { opacity: 0, x:  50, scale: 0.6 }, delay: 1.25 },
+        // 5th — flag / year row — last piece, completes the picture
+        { ctrl: bottomAnim,  from: { opacity: 0, y:  40, scale: 0.8 }, delay: 1.65 },
+      ];
+
+      items.forEach(({ ctrl, from, delay }) => {
+        ctrl.set(from);
+        ctrl.start({
+          opacity: 1, x: 0, y: 0, scale: 1,
+          transition: { ...SNAP, delay },
+        });
+      });
+
+    } else {
+      // idle – make sure everything is fully visible (covers app boot)
+      [photoAnim, topleftAnim, logoAnim, namebarAnim, bottomAnim].forEach((ctrl) =>
+        ctrl.set({ opacity: 1, x: 0, y: 0, scale: 1 })
+      );
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [celebState]);
 
   useEffect(() => {
     if (isActive && !prevActive.current) {
-      // clear any previous timer
-      if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
-
+      clearTimers();
       setGifKey((k) => k + 1);
-      setShowCelebration(true);
+      setCelebState("celebrating");
+
       setTimeout(() => setShowParticles(true), 100);
       setTimeout(() => setShowParticles(false), 1400);
 
-      // إيقاف الـ GIF بعد 3 ثواني (مدة الـ GIF)
-      celebrationTimer.current = setTimeout(() => {
-        setShowCelebration(false);
-      }, 3000);
+      // GIF duration → 2 s, then kick off reassemble
+      timerA.current = setTimeout(() => {
+        setCelebState("reassembling");
+
+        // Reassemble animation takes ~2.3 s → back to idle
+        timerB.current = setTimeout(() => setCelebState("idle"), 2300);
+      }, 2000);
     }
     if (!isActive) {
-      if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
-      setShowCelebration(false);
+      clearTimers();
+      setCelebState("idle");
       setShowParticles(false);
     }
     prevActive.current = isActive;
   }, [isActive]);
 
   // cleanup on unmount
-  useEffect(() => () => {
-    if (celebrationTimer.current) clearTimeout(celebrationTimer.current);
-  }, []);
+  useEffect(() => () => { clearTimers(); }, []);
 
   return (
     // wrapper: overflow visible so particles can fly outside card bounds
@@ -150,7 +218,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
 
       {/* ── Outer glow halo ── */}
       <AnimatePresence>
-        {showCelebration && (
+        {celebState === "celebrating" && (
           <motion.div
             key="halo"
             style={{
@@ -191,17 +259,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
         <img src={bg} className="pc__bg" alt="" />
 
         {/* ── Layer 2: Player photo — clipped inside card bounds ── */}
-        <div className="pc__photo-clip">
-          <img
-            src={employee.photoUrl}
-            className="pc__photo"
-            alt={fullName}
-            style={{
-              opacity: showCelebration ? 0 : 1,
-              transition: showCelebration ? "opacity 0.2s ease" : "opacity 0.5s ease 0.3s",
-            }}
-          />
-        </div>
+        <motion.div className="pc__photo-clip" animate={photoAnim}>
+          <img src={employee.photoUrl} className="pc__photo" alt={fullName} />
+        </motion.div>
 
         {/* ── Layer 3: Shield outline ── */}
         <img
@@ -209,10 +269,10 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           className="pc__outline"
           alt=""
           style={{
-            filter: showCelebration
+            filter: celebState === "celebrating"
               ? `drop-shadow(0 0 8px ${colors.primary}) drop-shadow(0 0 16px ${colors.primary}) drop-shadow(0 0 30px ${colors.glow})`
               : "none",
-            transition: showCelebration ? "filter 0.3s ease" : "filter 0.6s ease",
+            transition: celebState === "celebrating" ? "filter 0.3s ease" : "filter 0.6s ease",
           }}
         />
 
@@ -222,7 +282,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
         )}
 
         {/* ── Layer 4: Sport icon / Football info ── */}
-        <div className="pc__topleft">
+        <motion.div className="pc__topleft" animate={topleftAnim}>
           {employee.department === "Football" ? (
             <>
               <span className="pc__rating">{employee.rating}</span>
@@ -233,25 +293,49 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           ) : (
             <span className="pc__sport-icon">{SPORT_ICONS[employee.department] ?? "🏅"}</span>
           )}
-        </div>
+        </motion.div>
 
         {/* ── Layer 5: Mahd logo ── */}
-        <img src="/assets/card-layers/Logo.png" className="pc__logo" alt="Mahd" />
+        <motion.img src="/assets/card-layers/Logo.png" className="pc__logo" alt="Mahd" animate={logoAnim} />
 
         {/* ── Layer 6: Name bar ── */}
-        <div className="pc__namebar">
+        <motion.div className="pc__namebar" animate={namebarAnim}>
           <img src={bar} className="pc__namebar-bg" alt="" />
           <span className="pc__namebar-text">{fullName}</span>
-        </div>
+        </motion.div>
 
         {/* ── FRONT: flag + year ── */}
-        <div className="pc__bottom pc__bottom--front">
-          <div className="pc__flag-row">
-            <img src="/assets/card-layers/Flag.png" className="pc__flag" alt="SA" />
-            <span className="pc__country">SAUDI ARABIA</span>
-          </div>
-          <span className="pc__year">{employee.year}</span>
-        </div>
+        <motion.div className="pc__bottom pc__bottom--front" animate={bottomAnim}>
+          <AnimatePresence>
+            {!isToggled && (
+              <motion.div
+                key="flag-row"
+                className="pc__flag-row"
+                initial={{ opacity: 0, y: -12, scale: 0.75 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12, scale: 0.75 }}
+                transition={{ duration: 0.28, ease: [0.32, 0, 0.67, 0] }}
+              >
+                <img src="/assets/card-layers/Flag.png" className="pc__flag" alt="SA" />
+                <span className="pc__country">SAUDI ARABIA</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {!isToggled && (
+              <motion.span
+                key="year"
+                className="pc__year"
+                initial={{ opacity: 0, y: 16, scale: 0.7 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 16, scale: 0.7 }}
+                transition={{ duration: 0.28, ease: [0.32, 0, 0.67, 0], delay: isToggled ? 0 : 0.06 }}
+              >
+                {employee.year}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
         {/* ── BACK: stats + flip icon ── */}
         <div className="pc__bottom pc__bottom--back">
@@ -275,7 +359,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
 
         {/* ── Celebration GIF ── */}
         <AnimatePresence>
-          {showCelebration && (
+          {celebState === "celebrating" && (
             <div className="pc__photo-clip">
               <motion.img
                 key={gifKey}
@@ -285,24 +369,8 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
                 style={{ opacity: 1 }}
                 initial={{ opacity: 0, filter: "brightness(2) saturate(0)" }}
                 animate={{ opacity: 1, filter: "brightness(1) saturate(1)" }}
-                exit={{
-                  opacity: [1, 0, 1, 0, 1, 0],
-                  filter: [
-                    "brightness(1) saturate(1)",
-                    "brightness(3) saturate(0) hue-rotate(90deg)",
-                    "brightness(1) saturate(1)",
-                    "brightness(3) saturate(0) hue-rotate(180deg)",
-                    "brightness(1) saturate(1)",
-                    "brightness(0) saturate(0)",
-                  ],
-                  x: [0, -4, 4, -2, 2, 0],
-                  scaleX: [1, 1.02, 0.98, 1.01, 0.99, 1],
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: "linear",
-                  times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-                }}
+                exit={{ opacity: 0, filter: "brightness(2) saturate(0)" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
               />
             </div>
           )}
@@ -311,6 +379,6 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default PlayerCard;

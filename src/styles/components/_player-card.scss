@@ -12,6 +12,8 @@ $card-h: 442px;
   cursor: pointer;
   margin: 0 auto;
   user-select: none;
+  will-change: transform;
+  transform: translateZ(0);
   transition: transform 0.3s cubic-bezier(.175, .885, .32, 1.2);
 
   &:hover {
@@ -331,11 +333,6 @@ $card-h: 442px;
 
   // ─────────── Toggled state ───────────
   &.pc--toggled {
-    .pc__bottom--front {
-      opacity: 0;
-      pointer-events: none;
-    }
-
     .pc__bottom--back {
       opacity: 1;
       pointer-events: auto;

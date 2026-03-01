@@ -229,14 +229,14 @@ const TeamSlider = () => {
             onSwiper={handleSwiper}
             onSlideChange={handleSlideChange}
           >
-            {employees.map((item) => (
+            {employees.map((item, index) => (
               <SwiperSlide key={item.id} className="swiper-slide-custom">
                 <PlayerCard
                   employee={item}
                   isToggled={toggledId === item.id}
                   onToggle={() => handleToggle(item.id)}
                   qrCode={<QRCodeComponent data={generateEmployeeVCard(item)} />}
-                  isActive={employees.indexOf(item) === activeIndex}
+                  isActive={index === activeIndex}
                 />
               </SwiperSlide>
             ))}
